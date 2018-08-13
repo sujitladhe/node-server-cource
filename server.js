@@ -12,21 +12,21 @@ app.set('view engine', 'hbs');
 
 app.use(express.static((__dirname + '/public')));
 
-// app.use((req, res, next) => {
-// 	var now = new Date().toString();
-// 	var log = `${now} : ${req.method} ${req.url}`;
-// 	fs.appendFile('server.log',log + '\n', (error) => {
-// 		if (error) {
-// 			console.log('cant create a log');
-// 		}
-// 	});
-// 	console.log(log);
-// 	next();
-// });
-
 app.use((req, res, next) => {
-	res.render('temp.hbs');
+	var now = new Date().toString();
+	var log = `${now} : ${req.method} ${req.url}`;
+	fs.appendFile('server.log',log + '\n', (error) => {
+		if (error) {
+			console.log('cant create a log');
+		}
+	});
+	console.log(log);
+	next();
 });
+
+// app.use((req, res, next) => {
+// 	res.render('temp.hbs');
+// });
 
 hbs.registerHelper('currentYear', ()  => {
 	return new Date().getFullYear();
